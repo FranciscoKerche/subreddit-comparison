@@ -41,7 +41,7 @@ def preprocess_text(text):
     ]
     
     # Remove short words
-    tokens = [token for token in tokens if len(token) > 2]
+    tokens = [token for token in tokens if len(token) > 2 or token in ['GF', 'Gf', 'gf', 'BF', 'Bf','bf', 'EX', 'Ex','ex']] # added "or....]"
     
     return ' '.join(tokens)
 

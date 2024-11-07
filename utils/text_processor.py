@@ -29,6 +29,7 @@ def preprocess_text(text):
     
     # Remove stopwords
     stop_words = set(stopwords.words('english'))
+    extra_stop = ['tifu', 'aita', 'wibta',]
     tokens = [token for token in tokens if token not in stop_words]
     
     # Lemmatize based on POS tag
@@ -39,9 +40,9 @@ def preprocess_text(text):
         else lemmatizer.lemmatize(word)
         for word, tag in tokens
     ]
-    
+
     # Remove short words
-    tokens = [token for token in tokens if len(token) > 2 or token in ['GF', 'Gf', 'gf', 'BF', 'Bf','bf', 'EX', 'Ex','ex']] # added "or....]"
+    tokens = [token for token in tokens if len(token) > 2 or token in ['gf', 'bf', 'ex', 'so']] # added "or....]"
     
     return ' '.join(tokens)
 

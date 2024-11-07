@@ -29,7 +29,8 @@ def preprocess_text(text):
     
     # Remove stopwords
     stop_words = set(stopwords.words('english'))
-    extra_stop = ['tifu', 'aita', 'wibta',]
+    extra_stop = ['tifu', 'aita', 'wibta','aitah',]
+    stop_words.update(extra_stop)
     tokens = [token for token in tokens if token not in stop_words]
     
     # Lemmatize based on POS tag

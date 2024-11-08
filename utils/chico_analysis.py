@@ -146,7 +146,3 @@ def cosine_dist_word_net(tf_idf_matrix, feature_names, word, distance):
     relevant_terms = sorted(relevant_terms, key=lambda x: x[1], reverse=True)[:n_highlight]
 
     return relevant_terms
-
-def cosine_between_doc(full_result):
-    for sub in full_result:
-        

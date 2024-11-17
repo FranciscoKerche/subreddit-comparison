@@ -7,6 +7,65 @@ from nltk.tag import pos_tag
 import re
 import pandas as pd
 
+
+# thesaurus = {
+#     "break up": "break-up",
+#     "make up": "make-up",
+#     "move on": "move-on",
+#     "get back": "get-back",
+#     "hook up": "hook-up",
+#     "settle down": "settle-down",
+#     "house party": "house-party",
+#     "move in": "move-in",
+#     "friend zone": "friend-zone",
+#     "date night": "date-night",
+#     "long distance": "long-distance",
+#     "heart break": "heartbreak",
+#     "mother in law": "mother-in-law",
+#     "father in law": "father-in-law",
+#     "sister in law": "sister-in-law",
+#     "brother in law": "brother-in-law",
+#     "step father": "step-father",
+#     "step mother": "step-mother",
+#     "step sister": "step-sister",
+#     "step brother": "step-brother",
+#     "half sister": "half-sister",
+#     "half brother": "half-brother",
+#     "significant other": "significant-other",
+#     "in laws": "in-laws",
+#     "best friend": "best-friend",
+#     "close friend": "close-friend",
+#     "soul mate": "soul-mate",
+#     "life partner": "life-partner",
+#     "child care": "child-care",
+#     "day care": "day-care",
+#     "family member": "family-member",
+#     "blood relation": "blood-relation",
+#     "next of kin": "next-of-kin",
+#     "gf": "girlfriend",
+#     "bf": "boyfriend",
+#     "so": "significant-other",
+#     "girl friend": "girlfriend",
+#     "boy friend": "boyfriend",
+#     "safe space": "safe-space",
+#     "mental health": "mental-health",
+#     "self esteem": "self-esteem",
+#     "self worth": "self-worth",
+#     "self care": "self-care",
+#     "self love": "self-love",
+#     "self respect": "self-respect",
+#     "self improvement": "self-improvement",
+#     "self help": "self-help",
+#     "self discovery": "self-discovery",
+#     "self acceptance": "self-acceptance",
+#     "self realization": "self-realization",
+#     "self reflection": "self-reflection",
+#     "self awareness": "self-awareness",
+#     "self development": "self-development",
+# }
+
+
+
 def preprocess_text(text):
     """
     Clean and normalize text using NLTK.
@@ -19,10 +78,66 @@ def preprocess_text(text):
     
     # Remove URLs
     text = re.sub(r'http\S+|www\S+', '', text)
-    
+
+
+
+    def standardize_relationship_terms(text):
+        # Define a dictionary of terms to replace
+        replacements = {
+            # Partner-related terms
+            r"\bgf\b": "girlfriend",
+            r"\bbf\b": "boyfriend",
+            r"\bso\b": "significant other",
+            r"\bex-girlfriend\b": "ex girlfriend",
+            r"\bex-boyfriend\b": "ex boyfriend",
+            r"\bex-wife\b": "ex wife",
+
+            # Family-related terms
+            r"\bmom\b": "mother",
+            r"\bdad\b": "father",
+            r"\bgrandma\b": "grandmother",
+            r"\bgrandpa\b": "grandfather",
+            r"\bfam\b": "family",
+            r"\bkids\b": "child",
+            r"\bkid\b": "child",
+            r"\bchildren\b": "child",
+            r"\bparents\b": "parent",
+
+            # Friend-related terms
+            r"\bbuddies\b": "friend",
+            r"\bbuddy\b": "friend",
+            r"\bpals\b": "friend",
+            r"\bpal\b": "friend",
+            r"\bmates\b": "friend",
+            r"\bmate\b": "friend",
+            r"\bchums\b": "friend",
+            r"\bchum\b": "friend",
+            r"\ballies\b": "friend",
+            r"\bally\b": "friend",
+            r"\bacquaintances\b": "friend",
+            r"\bacquaintance\b": "friend",
+            r"\bcompanions\b": "friend",
+            r"\bcompanion\b": "friend",
+            r"\bfriends\b": "friend",
+            r"\bfriends\b": "friend",
+            r"\bcolleagues\b": "colleague",
+            r"\bcoworkers\b": "coworker",
+            r"\bteammates\b": "teammate",
+            r"\broommates\b": "roommate"
+        }
+        
+        # Replace each term in the text
+        for pattern, replacement in replacements.items():
+            text = re.sub(pattern, replacement, text)
+        
+        return text
+            
+
     # Remove special characters and numbers
     text = re.sub(r'[^\w\s]', ' ', text)
     text = re.sub(r'\d+', '', text)
+    text = standardize_relationship_terms(text)
+    
     
     # Tokenize
     tokens = word_tokenize(text)

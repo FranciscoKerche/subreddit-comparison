@@ -95,6 +95,7 @@ class RedditScraper:
             if 'data' in comment:
                 comment_data = comment['data']
                 parsed_comments.append({
+                    'subreddit': comment_data.get('subreddit'),
                     'comment_id': comment_data.get('id'),
                     'parent_id': parent_id,
                     'post_id': post_id,
